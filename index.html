@@ -41,7 +41,7 @@ bgp:['Background photo','Foto latar'],c1:['Color 1','Warna 1'],c2:['Color 2','Wa
 let lang=localStorage.auL||'en',cur=localStorage.auP||'',view='dash',db={projects:[]},s={},pv=()=>{};
 const t=k=>L[k]?L[k][lang=='id'?1:0]:k,P=()=>db.projects.find(p=>p.id==cur),AV=(u,n)=>u?`<img class=av src="${u}" crossorigin=anonymous>`:`<span class=av>${esc((n||'?')[0]).toUpperCase()}</span>`;
 const idb=()=>new Promise((r,j)=>{const q=indexedDB.open('au',1);q.onupgradeneeded=()=>q.result.createObjectStore('s');q.onsuccess=()=>r(q.result);q.onerror=()=>j(q.error)});
-const firebaseConfig={apiKey:"AIzaSyCDzbz_i4fHM_PUBcY96aKD97rwZJo15w",authDomain:"au-creator-studio.firebaseapp.com",projectId:"au-creator-studio",storageBucket:"au-creator-studio.firebasestorage.app",messagingSenderId:"337370115560",appId:"1:337370115560:web:38a598ba0d8df08682485d",measurementId:"G-ZJEE865Y79"};
+const firebaseConfig={apiKey:"AIzaSyCDZbbz_i4fHM_PUBcY96aKD97rwZJo15w",authDomain:"au-creator-studio.firebaseapp.com",projectId:"au-creator-studio",storageBucket:"au-creator-studio.firebasestorage.app",messagingSenderId:"337370115560",appId:"1:337370115560:web:38a598ba0d8df08682485d",measurementId:"G-ZJEE865Y79"};
 let auth=null,cloud=null,currentUser=null;const shareToken=new URLSearchParams(location.search).get('share');
 try{firebase.initializeApp(firebaseConfig);auth=firebase.auth();cloud=firebase.firestore()}catch(e){console.error(e)}
 function normalizeProject(p){if(!Array.isArray(p.chapters))p.chapters=[];if(!p.bible)p.bible={setting:'',rules:'',secrets:'',plotpoints:''};if(!Array.isArray(p.chars))p.chars=[];if(!Array.isArray(p.items))p.items=[];if(!Array.isArray(p.tl))p.tl=[];return p}
