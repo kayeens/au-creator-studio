@@ -65,7 +65,7 @@ o.onclick=e=>{const i=e.target.id;if(i=='rm'){ph='';sp()}if(i=='c'||e.target==o)
 const NV=['dash','proj','wr','bible','tw','wa','dm','st','ch','tl','set'];
 function nav(){$('#nv').innerHTML=`<h1>🌸 AU Creator Studio</h1><small>${t('tag')}</small><br><br>`+NV.map(k=>`<a data-v=${k} class="${k==view?'on':''}">${t(k)}</a>`).join('');
 $('#ps').innerHTML=db.projects.map(p=>`<option value=${p.id} ${p.id==cur?'selected':''}>${esc(p.title)}</option>`).join('')||'<option>—</option>'}
-$('#nv').onclick=e=>{if(e.target.dataset.v)go(e.target.dataset.v)};$('#ps').onchange=e=>{cur=e.target.value;localStorage.auP=cur;const p=P();if(p){p.opened=Date.now();save()}go(view)};
+$('#nv').onclick = e => {const link = e.target.closest('[data-v]'); if (link) go(link.dataset.v);};$('#ps').onchange=e=>{cur=e.target.value;localStorage.auP=cur;const p=P();if(p){p.opened=Date.now();save()}go(view)};
 $('#ls').value=lang;$('#ls').onchange=e=>{lang=e.target.value;localStorage.auL=lang;document.documentElement.lang=lang;go(view)};
 function go(v){view=v;nav();const m=$('#mn');m.onclick=m.oninput=m.onchange=null;const f={dash,proj,pd,wr:writingRoom,bible:storyBible,ch:chars,tl,set:settings}[v];if(f)f(m);else gen(m,v)}
 const need=m=>{if(P())return 0;m.innerHTML=`<div class=card>${t('needp')} <button class="b p" onclick="newProj()">${t('np')}</button></div>`;return 1};
