@@ -63,10 +63,47 @@ const sp=()=>{const e=$('#pv',o);if(e)e.innerHTML=AV(ph,v.name)};sp();
 o.onchange=async e=>{if(e.target.id=='fi'){try{ph=await readImg(e.target.files[0],400);sp()}catch(_){}}if(e.target.dataset.c){const i=e.target.dataset.c;ch=e.target.checked?[...ch,i]:ch.filter(x=>x!=i)}};
 o.onclick=e=>{const i=e.target.id;if(i=='rm'){ph='';sp()}if(i=='c'||e.target==o){o.remove();res(null)}if(i=='s'){const r={photo:ph,chars:ch};o.querySelectorAll('[data-k]').forEach(x=>r[x.dataset.k]=x.value.trim());o.remove();res(r)}}})}
 const NV=['dash','proj','wr','bible','tw','wa','dm','st','ch','tl','set'];
-function nav(){$('#nv').innerHTML=`<h1>🌸 AU Creator Studio</h1><small>${t('tag')}</small><br><br>`+NV.map(k=>`<a data-v=${k} class="${k==view?'on':''}">${t(k)}</a>`).join('');
-$('#ps').innerHTML=db.projects.map(p=>`<option value=${p.id} ${p.id==cur?'selected':''}>${esc(p.title)}</option>`).join('')||'<option>—</option>'}
-$('#nv').onclick = e => {const link = e.target.closest('[data-v]'); if (link) go(link.dataset.v);};$('#ps').onchange=e=>{cur=e.target.value;localStorage.auP=cur;const p=P();if(p){p.opened=Date.now();save()}go(view)};
-$('#ls').value=lang;$('#ls').onchange=e=>{lang=e.target.value;localStorage.auL=lang;document.documentElement.lang=lang;go(view)};
+
+function nav() {
+  const nv = $('#nv');
+  const ps = $('#ps');
+  const ls = $('#ls');
+
+  nv.innerHTML =
+    `<h1>🌸 AU Creator Studio</h1><small>${t('tag')}</small><br><br>` +
+    NV.map(k =>
+      `<a data-v="${k}" class="${k === view ? 'on' : ''}">${t(k)}</a>`
+    ).join('');
+
+  ps.innerHTML = db.projects.map(p =>
+    `<option value="${p.id}" ${p.id == cur ? 'selected' : ''}>${esc(p.title)}</option>`
+  ).join('') || '<option value="">—</option>';
+
+  nv.onclick = e => {
+    const link = e.target.closest('[data-v]');
+    if (link) go(link.dataset.v);
+  };
+
+  ps.onchange = e => {
+    cur = e.target.value;
+    localStorage.auP = cur;
+    const p = P();
+    if (p) {
+      p.opened = Date.now();
+      save();
+    }
+    go(view);
+  };
+
+  ls.value = lang;
+  ls.onchange = e => {
+    lang = e.target.value;
+    localStorage.auL = lang;
+    document.documentElement.lang = lang;
+    go(view);
+  };
+}
+
 function go(v){view=v;nav();const m=$('#mn');m.onclick=m.oninput=m.onchange=null;const f={dash,proj,pd,wr:writingRoom,bible:storyBible,ch:chars,tl,set:settings}[v];if(f)f(m);else gen(m,v)}
 const need=m=>{if(P())return 0;m.innerHTML=`<div class=card>${t('needp')} <button class="b p" onclick="newProj()">${t('np')}</button></div>`;return 1};
 function dash(m){const n=db.projects.length,c=db.projects.reduce((a,p)=>a+p.chars.length,0),i=db.projects.reduce((a,p)=>a+p.items.length,0),rc=[...db.projects].sort((a,b)=>(b.opened||0)-(a.opened||0)).slice(0,4);
